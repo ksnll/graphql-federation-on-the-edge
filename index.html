@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>## GraphQL federation on the edge</section>
+				<section data-markdown>
+					## GraphQL Federation: WHY?
+					![start](./images/start.png)
+
+					- This is where all applications start
+
+					- Perfect for simple application
+
+					- Great to have a unified view of the data
+				</section>
+				<section data-markdown>
+					## THE MONOLITH
+
+					![monolith](./images/monolith.png)
+
+					- As the application grows, it starts to tangle more and more
+
+					- Multiple teams working on it, with risk of type duplications, and moving slower
+
+				</section>
+				<section data-markdown>
+					## BFF
+
+					![bff](./images/bff.png)
+
+					- Good developer experience, domain separation
+
+					- Duplicate effort, missing an unified view of the data
+
+				</section>
+				<section data-markdown>
+					## Apollo Federation: Concepts
+
+					![federation-gateway](./images/federation-gateway.png)
+
+					- The gateway is the entry point of each request and coordinates all the subgraphs
+
+					- What is a subgraph? It's an instance of @apollo/subgraph. For example, In SE we got disco, se and assessment subgraphs
+				</section>
+				<section data-markdown>
+					## Apollo Federation: Concepts
+
+					![subgraphs](./images/subgraphs.png)
+
+					- In a federated architecture multiple subgraphs are federated into a single "supergraph" on the gateway
+
+					- Easy to merge different types, but what about extending?
+
+				</section>
+				<section data-markdown>
+					## Apollo Federation: Entities
+
+					![drilling-disco](./images/drilling-disco.png)
+					- An entity is an object type that you define in one subgraph and you extend and reference in other subgraphs
+
+					- In apollo, you can define an entity by using the `@key` directive
+
+				</section>
+				<section data-markdown>
+					## Apollo Federation: Entities
+
+					![directives](./images/directives.png)
+
+					- SE subgraph extends the type from Disco
+
+					- SE needs also resolvers for the fields it provides
+				</section>
+				<section data-markdown>
+					## Apollo Federation: Entities
+
+					- Merged type in federation
+
+					![drilling-federated](./images/drilling-federated.png)
+				</section>
+
+				<section data-markdown>
+					## Apollo Federation: Concepts
+					![federation](./images/federation.png)
+				</section>
+
+				<section data-markdown>
+					## How data is queried
+
+					![entities](./images/entities.png)
+
+					- Transforming the server to a subgraph, it will provide a _service and a _entities query
+
+					![union-entity](./images/union-entity.png)
+
+				</section>
+
+				<section data-markdown>
+					## How data is queried
+
+					![example-query](./images/example-query.png)
+
+					- We query for any type specifying the required keys and the typename
+
+					- Use the `...on` sytax to query the fields of the specific type
+
+				</section>
+				<section data-markdown>
+					## So are we using apollo federation?
+
+					- Only on the subgraphs, the gateway is using @graphql-tools stitching
+
+					- Reasons: smaller bundle size & less bloated, more powerful, runs smooths on workers
+
+					- Compatible with apollo federation (not to be confused with the "old" stitching)
+
+				</section>
+				<section data-markdown>
+					## How does graphql-tools stitching works?
+
+					- Remote schemas that threats remote endpoints as if they were local executable schemas
+
+					- Executors define how to fetch data from (ie: POST request to a GraphQL server)
+
+					- Automatic types merging compatible with apollo federation with some conversions
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
