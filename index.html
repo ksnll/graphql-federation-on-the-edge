@@ -133,9 +133,60 @@
 
 					- Remote schemas that threats remote endpoints as if they were local executable schemas
 
-					- Executors define how to fetch data from (ie: POST request to a GraphQL server)
+					![fifty](./images/remote-schemas.png)
 
-					- Automatic types merging compatible with apollo federation with some conversions
+				</section>
+				<section data-markdown>
+					## How does graphql-tools stitching works?
+
+					- Stitching schemas together will create a single schema like on apollo federation
+
+					- Some minor conversion needed for the directives
+
+					![fifty](./images/stitching.png)
+
+				</section>
+				<section data-markdown>
+					## Full stitching example
+
+					![full-stitching](./images/full-stitching.png)
+				</section>
+				<section data-markdown>
+					## Pitfalls
+
+					- Think about the federation when designing queries and entities, you could easily trigger multiple subgraph requests
+
+					- Avoid breaking changes, with federation you could break the graph for everyone
+
+					- Be careful about enums, interfaces, inputs with the same names
+				</section>
+				<section data-markdown>## Cloudflare</section>
+				<section data-markdown>
+					## Cloudflare workers: Pros
+
+					- All the serverless goodies (autoscaling, easy deployments, global network)
+
+					- 0ms cold start
+
+					- Edge storage KV builtin
+
+					- 1/10th the cost of other serverless platforms
+				</section>
+
+				<section data-markdown>
+					## Cloudflare workers: Differences
+
+					- Does not support lots of node builtin modules (so we had to reimplement things like apps insights,
+					  testing environments etc)
+
+					- Still cutting edge, so more functionalities added, tooling changes, best practices not obvious etc.
+				</section>
+
+				<section data-markdown>
+					## Cloudflare request
+
+					![network](./images/network.png)
+
 				</section>
 			</div>
 		</div>
