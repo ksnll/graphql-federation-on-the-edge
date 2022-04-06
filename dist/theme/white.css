@@ -138,13 +138,14 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   max-width: 50%;
 }
 
-.reveal img[alt=start], .reveal img[alt=monolith] , .reveal img[alt=bff], .reveal img[alt=federation-gateway], img[alt=example-query] , img[alt=fifty] {
+.reveal img[alt=start], .reveal img[alt=monolith] , .reveal img[alt=bff], .reveal img[alt=federation-gateway], img[alt=fifty] {
   max-width: 50%;
 }
 
 img[alt=union-entity] { max-width: 40%}
 img[alt=request] { max-width: 20%}
 img[alt=network] { max-width: 60%}
+img[alt=example-query] { max-width: 65%}
 
 .reveal strong,
 .reveal b {
